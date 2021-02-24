@@ -63,8 +63,7 @@ def transform_view():
     result = transform1(stream.read())
 
     df = pd.read_csv(StringIO(result))
-	
-	df['prediction'] = df['Solution'].apply(make_prediction)
+    df['prediction'] = df['Solution'].apply(make_prediction)
 
     response = make_response(df.to_csv())
     response.headers["Content-Disposition"] = "attachment; filename=result.csv"
