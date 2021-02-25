@@ -47,7 +47,7 @@ def make_prediction(strinput):
 def form():
     return render_template('index.html')
 
-@app.route('/Predict', methods=["POST"])
+@app.route('/transform', methods=["POST"])
 def transform_view():
     f = request.files['data_file']
     if not f:
