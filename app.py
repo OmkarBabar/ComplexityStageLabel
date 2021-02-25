@@ -51,6 +51,7 @@ def form():
 
 @app.route('/transform', methods=["POST"])
 def transform_view():
+    """
     f = request.files['data_file']
 
     stream = io.StringIO(f.stream.read().decode("UTF8"), newline=None)
@@ -64,6 +65,7 @@ def transform_view():
     #result = transform(stream.read())
 
     df = pd.read_csv(StringIO(result), usecols=[1])
+    """
 
     df['prediction'] = df['Solution'].apply(make_prediction)
     #df['prediction'] = df.apply(make_prediction)
@@ -71,7 +73,7 @@ def transform_view():
     response = make_response(df.to_csv())
     #response = make_response(df.to_csv("predict.csv", index=False, header=False, encoding='utf8'))
     response.headers["Content-Disposition"] = "attachment; filename=result.csv"
-    response.headers["Content-type"] = "text/csv"
+  
     return response
 
 if __name__ == "__main__":
