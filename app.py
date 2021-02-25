@@ -49,32 +49,31 @@ def form():
 
 @app.route('/transform', methods=["POST"])
 def transform_view():
-    """
-    f = request.files['data_file']
-    if not f:
-        return "No file"
+    if request.method == 'POST':
+	    f = request.files['data_file']
+	    if not f:
+		return "No file"
 
-    stream = io.StringIO(f.stream.read().decode("UTF8"), newline=None)
-    csv_input = csv.reader(stream)
-    #print("file contents: ", file_contents)
-    #print(type(file_contents))
-    print(csv_input)
-    for row in csv_input:
-        print(row)
+	    stream = io.StringIO(f.stream.read().decode("UTF8"), newline=None)
+	    csv_input = csv.reader(stream)
+	    #print("file contents: ", file_contents)
+	    #print(type(file_contents))
+	    print(csv_input)
+	    for row in csv_input:
+		print(row)
 
-    stream.seek(0)
-    result = transform(stream.read())
+	    stream.seek(0)
+	    result = stream.read()
+	    #result = transform(stream.read())
 
-    df = pd.read_csv(StringIO(result))
-    """
-    df = pd.read_csv(request.files.get('data_file'))
-	
-    df['prediction'] = df['Solution'].apply(make_prediction)
+	    df = pd.read_csv(StringIO(result), usecols=[1])
 
-    response = make_response(df.to_csv())
-    response.headers["Content-Disposition"] = "attachment; filename=result.csv"
-    response.headers["Content-type"] = "text/csv"
-    return response
+	    df['prediction'] = df['Solution'].apply(make_prediction)
+
+	    response = make_response(df.to_csv())
+	    response.headers["Content-Disposition"] = "attachment; filename=result.csv"
+	    response.headers["Content-type"] = "text/csv"
+	    return response
 
 if __name__ == "__main__":
     app.run(debug=True)
