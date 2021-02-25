@@ -12,10 +12,12 @@ from nltk.stem import WordNetLemmatizer
 
 nltk.download('stopwords')
 
+"""
 filename = 'model.pkl'
 loaded_model    = pickle.load(open(filename, 'rb'))
 lb_make  = pickle.load(open('label.pkl','rb'))
 vectorizer  = pickle.load(open('vectorizer.pkl','rb'))
+"""
 
 app = Flask(__name__)
 
@@ -33,7 +35,7 @@ def text_preprocessing(str_input):
 
 def transform(text_file_contents):
     return text_file_contents.replace("=", ",")
-
+"""
 def make_prediction(strinput):
 	  prediction = lb_make.inverse_transform(loaded_model.predict(vectorizer.transform([text_preprocessing(strinput)])))
 
@@ -42,7 +44,7 @@ def make_prediction(strinput):
 	  str1 = ''.join(predlist)
 
 	  return str1
-
+"""
 @app.route('/')
 def form():
     return render_template('index.html')
@@ -62,6 +64,20 @@ def transform_view():
     #result = transform(stream.read())
 
     df = pd.read_csv(StringIO(result), usecols=[1])
+	
+    filename = 'model.pkl'
+    loaded_model    = pickle.load(open(filename, 'rb'))
+    lb_make  = pickle.load(open('label.pkl','rb'))
+    vectorizer  = pickle.load(open('vectorizer.pkl','rb'))
+    
+    def make_prediction(strinput):
+	  prediction = lb_make.inverse_transform(loaded_model.predict(vectorizer.transform([text_preprocessing(strinput)])))
+
+	  predlist = prediction.tolist()
+
+	  str1 = ''.join(predlist)
+
+	  return str1
 
     df['prediction'] = df['Solution'].apply(make_prediction)
     #df['prediction'] = df.apply(make_prediction)
