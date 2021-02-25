@@ -51,7 +51,7 @@ def form():
 def transform_view():
     f = request.files['data_file']
     if not f:
-	return "No file"
+		return "No file"
 
     stream = io.StringIO(f.stream.read().decode("UTF8"), newline=None)
     csv_input = csv.reader(stream)
