@@ -69,15 +69,6 @@ def transform_view():
     loaded_model    = pickle.load(open(filename, 'rb'))
     lb_make  = pickle.load(open('label.pkl','rb'))
     vectorizer  = pickle.load(open('vectorizer.pkl','rb'))
-    
-    def make_prediction(strinput):
-	  prediction = lb_make.inverse_transform(loaded_model.predict(vectorizer.transform([text_preprocessing(strinput)])))
-
-	  predlist = prediction.tolist()
-
-	  str1 = ''.join(predlist)
-
-	  return str1
 
     df['prediction'] = df['Solution'].apply(make_prediction)
     #df['prediction'] = df.apply(make_prediction)
