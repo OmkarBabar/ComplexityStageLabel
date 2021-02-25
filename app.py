@@ -58,7 +58,13 @@ def data():
 			csvfile = csv.reader(file)
 			for row in csvfile:
 				data.append(row)
-	return render_template('data.html', data=data)
+		
+		df = pd.DataFrame(data)
+		df['prediction'] = df['Solution'].apply(make_prediction)
+		response = make_response(df.to_csv())
+    		response.headers["Content-Disposition"] = "attachment; filename=result.csv"
+  
+    		return response
 	
 	"""
 	stream = f.read()
