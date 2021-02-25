@@ -58,31 +58,32 @@ def transform():
 		for row in csvfile:
 			data.append(row)
 	return render_template('data.html', data=data)
-    """
-    stream = f.read()
+	
+	"""
+	stream = f.read()
 
-    #stream = io.StringIO(f.stream.read())
-    #stream = io.StringIO(f.stream.read().decode("UTF8"), newline=None)
-    #csv_input = csv.reader(stream)
-    #print("file contents: ", file_contents)
-    #print(type(file_contents))
-    #print(csv_input)
+    	#stream = io.StringIO(f.stream.read())
+    	#stream = io.StringIO(f.stream.read().decode("UTF8"), newline=None)
+    	#csv_input = csv.reader(stream)
+    	#print("file contents: ", file_contents)
+    	#print(type(file_contents))
+    	#print(csv_input)
 
-    stream.seek(0)
-    result = stream.read()
-    #result = transform(stream.read())
+    	stream.seek(0)
+    	result = stream.read()
+    	#result = transform(stream.read())
 
-    df = pd.read_csv(StringIO(result), usecols=[1])
+    	df = pd.read_csv(StringIO(result), usecols=[1])
     
     
-    df['prediction'] = df['Solution'].apply(make_prediction)
-    #df['prediction'] = df.apply(make_prediction)
+    	df['prediction'] = df['Solution'].apply(make_prediction)
+    	#df['prediction'] = df.apply(make_prediction)
 
-    response = make_response(df.to_csv())
-    response.headers["Content-Disposition"] = "attachment; filename=result.csv"
+    	response = make_response(df.to_csv())
+    	response.headers["Content-Disposition"] = "attachment; filename=result.csv"
   
-    return response
-    """
+    	return response
+	"""
     
 if __name__ == "__main__":
     app.run(debug=True)
