@@ -49,15 +49,16 @@ def make_prediction(strinput):
 def form():
     return render_template('index.html')
 
-@app.route('/transform', methods=["POST"])
-def transform():
-	f = request.files['data_file']
-	data = []
-	with open(f) as file:
-		csvfile = csv.reader(file)
-		for row in csvfile:
-			data.append(row)
-	return render_template('data.html', data=data)
+@app.route('/data', methods=['GET','POST'])
+def data():
+	if request.method == 'POST':
+		f = request.files['csvfile']
+		data = []
+		with open(f) as file:
+			csvfile = csv.reader(file)
+			for row in csvfile:
+				data.append(row)
+		return render_template('data.html', data=data)
 	
 	"""
 	stream = f.read()
