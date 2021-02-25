@@ -51,15 +51,13 @@ def form():
 
 @app.route('/transform', methods=["POST"])
 def transform():
-        
-    f = request.files['data_file']
-    data = []
-    with open(f) as file:
-        csvfile = csv.reader(file)
-        for row in csvfile:
-	    data.append(row)
-
-    return render_template('data.html', data=data)
+	f = request.files['data_file']
+	data = []
+	with open(f) as file:
+		csvfile = csv.reader(file)
+		for row in csvfile:
+			data.append(row)
+	return render_template('data.html', data=data)
     """
     stream = f.read()
 
