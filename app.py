@@ -66,7 +66,7 @@ def transform_view():
 
     df = pd.read_csv(StringIO(result), usecols=[1])
     
-    return print(df)
+    return df
     """
     df['prediction'] = df['Solution'].apply(make_prediction)
     #df['prediction'] = df.apply(make_prediction)
