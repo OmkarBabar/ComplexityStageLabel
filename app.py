@@ -50,8 +50,6 @@ def form():
 @app.route('/transform', methods=["POST"])
 def transform_view():
     f = request.files['data_file']
-    if not f:
-	return "No file"
 
     stream = io.StringIO(f.stream.read().decode("UTF8"), newline=None)
     csv_input = csv.reader(stream)
