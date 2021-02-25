@@ -49,6 +49,7 @@ def form():
 
 @app.route('/transform', methods=["POST"])
 def transform_view():
+    """
     f = request.files['data_file']
     if not f:
         return "No file"
@@ -65,6 +66,9 @@ def transform_view():
     result = transform(stream.read())
 
     df = pd.read_csv(StringIO(result))
+    """
+    df = pd.read_csv(request.files.get('data_file'))
+	
     df['prediction'] = df['Solution'].apply(make_prediction)
 
     response = make_response(df.to_csv())
