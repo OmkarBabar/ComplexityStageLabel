@@ -56,8 +56,10 @@ def transform():
     data = []
     with open(f) as file:
         csvfile = csv.reader(file)
+	for row in csvfile:
+	    data.append(row)
 
-    return csvfile
+    return render_template('data.html',data= data)
     """
     stream = f.read()
 
