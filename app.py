@@ -58,11 +58,11 @@ def data():
 			for row in csvfile:
 				data.append(row)
 		
-		df = pd.DataFrame(data)
+		data = pd.DataFrame(data)
 		
 		#df['prediction'] = df['Solution'].apply(make_prediction)
 		
-		return render_template('data.html',data=df.to_html(header = False, index = False))
+		return render_template('data.html',data=data.to_html(header = False, index = False))
 	
 	"""
 	stream = f.read()
