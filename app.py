@@ -56,8 +56,6 @@ def transform_view():
     #print("file contents: ", file_contents)
     #print(type(file_contents))
     print(csv_input)
-    for row in csv_input:
-	print(row)
 
     stream.seek(0)
     result = stream.read()
