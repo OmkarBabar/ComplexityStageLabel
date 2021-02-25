@@ -63,8 +63,8 @@ def transform_view():
 
     df = pd.read_csv(StringIO(result), usecols=[1])
 
-    #df['prediction'] = df['Solution'].apply(make_prediction)
-    df['prediction'] = df.apply(make_prediction)
+    df['prediction'] = df['Solution'].apply(make_prediction)
+    #df['prediction'] = df.apply(make_prediction)
 
     #response = make_response(df.to_csv())
     response = make_response(df.to_csv("predict.csv", index=False, header=False, encoding='utf8'))
