@@ -60,9 +60,9 @@ def data():
 		
 		df = pd.DataFrame(data)
 		
-		df['prediction'] = df['Solution'].apply(make_prediction)
+		#df['prediction'] = df['Solution'].apply(make_prediction)
 		
-		return render_template('data.html',data=df.to_html())
+		return render_template('data.html',data=df.to_html(header = False, index = False))
 	
 	"""
 	stream = f.read()
