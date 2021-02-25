@@ -12,7 +12,6 @@ from nltk.stem import WordNetLemmatizer
 
 nltk.download('stopwords')
 
-
 filename = 'model.pkl'
 loaded_model    = pickle.load(open(filename, 'rb'))
 lb_make  = pickle.load(open('label.pkl','rb'))
@@ -63,9 +62,7 @@ def data():
 		
 		df['prediction'] = df['Solution'].apply(make_prediction)
 		
-		response = make_response(df.to_csv())
-		response.headers["Content-Disposition"] = "attachment; filename=result.csv"
-		return response
+		return render_template('data.html',data=df.to_html())
 	
 	"""
 	stream = f.read()
