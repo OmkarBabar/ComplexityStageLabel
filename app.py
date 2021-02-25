@@ -50,7 +50,7 @@ def form():
     return render_template('index.html')
 
 @app.route('/transform', methods=["POST"])
-def transform_view():
+def transform():
     
     f = request.files['data_file']
     
