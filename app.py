@@ -53,8 +53,10 @@ def form():
 def transform():
     
     f = request.files['data_file']
-    
-    stream = io.StringIO(f.stream.read())
+
+    stream = f.read()
+
+    #stream = io.StringIO(f.stream.read())
     #stream = io.StringIO(f.stream.read().decode("UTF8"), newline=None)
     #csv_input = csv.reader(stream)
     #print("file contents: ", file_contents)
@@ -74,7 +76,7 @@ def transform():
     response = make_response(df.to_csv())
     response.headers["Content-Disposition"] = "attachment; filename=result.csv"
   
-    return result
+    return response
     
 if __name__ == "__main__":
     app.run(debug=True)
