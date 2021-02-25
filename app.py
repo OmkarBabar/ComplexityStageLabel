@@ -69,6 +69,7 @@ def transform_view():
 
     response = make_response(df.to_csv())
     response.headers["Content-Disposition"] = "attachment; filename=result.csv"
+    response.headers["Content-type"] = "text/csv"
     return response
 
 if __name__ == "__main__":
