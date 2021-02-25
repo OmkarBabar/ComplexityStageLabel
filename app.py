@@ -58,7 +58,7 @@ def data():
 			csvfile = csv.reader(file)
 			for row in csvfile:
 				data.append(row)
-		return render_template('data.html', data=data)
+	return render_template('data.html', data=data)
 	
 	"""
 	stream = f.read()
