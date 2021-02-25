@@ -35,7 +35,7 @@ def text_preprocessing(str_input):
 
 def transform(text_file_contents):
     return text_file_contents.replace("=", ",")
-"""
+
 def make_prediction(strinput):
 	  prediction = lb_make.inverse_transform(loaded_model.predict(vectorizer.transform([text_preprocessing(strinput)])))
 
@@ -44,7 +44,7 @@ def make_prediction(strinput):
 	  str1 = ''.join(predlist)
 
 	  return str1
-"""
+
 @app.route('/')
 def form():
     return render_template('index.html')
