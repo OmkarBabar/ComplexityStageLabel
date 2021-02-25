@@ -31,7 +31,7 @@ def text_preprocessing(str_input):
   string = re.sub(r'[^A-Za-z]',' ',string)
   return string
 
-def transform1(text_file_contents):
+def transform(text_file_contents):
     return text_file_contents.replace("=", ",")
 
 def make_prediction(strinput):
@@ -62,7 +62,7 @@ def transform_view():
         print(row)
 
     stream.seek(0)
-    result = transform1(stream.read())
+    result = transform(stream.read())
 
     df = pd.read_csv(StringIO(result))
     df['prediction'] = df['Solution'].apply(make_prediction)
