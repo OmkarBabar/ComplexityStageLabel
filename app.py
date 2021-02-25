@@ -53,12 +53,13 @@ def form():
 def transform_view():
     
     f = request.files['data_file']
-
-    stream = io.StringIO(f.stream.read().decode("UTF8"), newline=None)
-    csv_input = csv.reader(stream)
+    
+    stream = io.StringIO(f.stream.read())
+    #stream = io.StringIO(f.stream.read().decode("UTF8"), newline=None)
+    #csv_input = csv.reader(stream)
     #print("file contents: ", file_contents)
     #print(type(file_contents))
-    print(csv_input)
+    #print(csv_input)
 
     stream.seek(0)
     result = stream.read()
