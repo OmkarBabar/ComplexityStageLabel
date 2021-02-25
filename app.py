@@ -12,12 +12,12 @@ from nltk.stem import WordNetLemmatizer
 
 nltk.download('stopwords')
 
-"""
+
 filename = 'model.pkl'
 loaded_model    = pickle.load(open(filename, 'rb'))
 lb_make  = pickle.load(open('label.pkl','rb'))
 vectorizer  = pickle.load(open('vectorizer.pkl','rb'))
-"""
+
 
 app = Flask(__name__)
 
@@ -64,11 +64,6 @@ def transform_view():
     #result = transform(stream.read())
 
     df = pd.read_csv(StringIO(result), usecols=[1])
-	
-    filename = 'model.pkl'
-    loaded_model    = pickle.load(open(filename, 'rb'))
-    lb_make  = pickle.load(open('label.pkl','rb'))
-    vectorizer  = pickle.load(open('vectorizer.pkl','rb'))
 
     df['prediction'] = df['Solution'].apply(make_prediction)
     #df['prediction'] = df.apply(make_prediction)
