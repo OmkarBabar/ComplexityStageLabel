@@ -63,9 +63,9 @@ def data():
 		
 		df['prediction'] = df['Solution'].apply(make_prediction)
 		
-	response = make_response(df.to_csv())
-    	response.headers["Content-Disposition"] = "attachment; filename=result.csv"
-	return response
+		response = make_response(df.to_csv())
+		response.headers["Content-Disposition"] = "attachment; filename=result.csv"
+		return response
 	
 	"""
 	stream = f.read()
