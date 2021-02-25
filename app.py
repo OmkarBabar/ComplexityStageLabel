@@ -51,9 +51,14 @@ def form():
 
 @app.route('/transform', methods=["POST"])
 def transform():
-    
+        
     f = request.files['data_file']
+    data = []
+    with open(f) as file:
+        csvfile = csv.reader(file):
 
+    return csvfile
+    """
     stream = f.read()
 
     #stream = io.StringIO(f.stream.read())
@@ -77,6 +82,7 @@ def transform():
     response.headers["Content-Disposition"] = "attachment; filename=result.csv"
   
     return response
+    """
     
 if __name__ == "__main__":
     app.run(debug=True)
