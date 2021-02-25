@@ -67,16 +67,14 @@ def transform_view():
 
     df = pd.read_csv(StringIO(result), usecols=[1])
     
-    return df
-    """
+    
     df['prediction'] = df['Solution'].apply(make_prediction)
     #df['prediction'] = df.apply(make_prediction)
 
     response = make_response(df.to_csv())
-    #response = make_response(df.to_csv("predict.csv", index=False, header=False, encoding='utf8'))
     response.headers["Content-Disposition"] = "attachment; filename=result.csv"
   
-    return response
-    """
+    return result
+    
 if __name__ == "__main__":
     app.run(debug=True)
