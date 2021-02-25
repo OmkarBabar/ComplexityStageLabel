@@ -55,7 +55,7 @@ def transform():
     f = request.files['data_file']
     data = []
     with open(f) as file:
-        csvfile = csv.reader(file):
+        csvfile = csv.reader(file)
 
     return csvfile
     """
