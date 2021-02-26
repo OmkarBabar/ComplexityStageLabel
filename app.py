@@ -64,7 +64,11 @@ def data():
 		stream.seek(0)
 		result = stream.read()
 		
-		response = make_response(result)
+		df = pd.read_csv(StringIO(result))
+		
+		df['Prediction'] = df['Solution'].apply(make_prediction)
+		
+		response = make_response(df.to_csv())
 		response.headers["Content-Disposition"] = "attachment; filename=result.csv"
 		return response
     
