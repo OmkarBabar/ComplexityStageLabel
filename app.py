@@ -62,8 +62,8 @@ def data():
 		if not file:
 			return "No file"
 		
-		#stream = io.TextIOWrapper(file.stream._file, "UTF8", newline=None)
-		stream = io.StringIO(file.stream.read().decode("UTF8"), newline=None)
+		stream = io.TextIOWrapper(file.stream._file, "UTF8", newline=None)
+		#stream = io.StringIO(file.stream.read().decode("UTF8"), newline=None)
 		csv_input = csv.reader(stream)
 		print(csv_input)
 		data =[]
@@ -73,6 +73,8 @@ def data():
 		
 		stream.seek(0)
 		result = transform(stream.read())
+		
+		df = pd.read_csv(StringIO(result))
 		
 		df['Prediction'] = df.apply(make_prediction)
 		
