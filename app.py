@@ -55,7 +55,7 @@ def data():
 		f = request.files['csvfile']
 		if not f:
 			return "No file"
-		files.save(os.path.join(ROOT_PATH,f.filename))
+		f.save(os.path.join(ROOT_PATH,f.filename))
 		df = pd.read_csv(os.path.join(ROOT_PATH,f.filename))
 		df['Prediction'] = df.apply(make_prediction)
 		
