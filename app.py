@@ -66,6 +66,9 @@ def data():
 		stream.seek(0)
 		result = stream.read()
 		
+		return render_template('data.html',data=result)
+		
+		"""
 		df = pd.read_csv(StringIO(result))
 		
 		#df['Prediction'] = df['Solution'].apply(make_prediction)
@@ -74,6 +77,6 @@ def data():
 		response = make_response(df.to_csv())
 		response.headers["Content-Disposition"] = "attachment; filename=result.csv"
 		return response
-    		
+    		"""
 if __name__ == "__main__":
 	app.run(debug=True)
