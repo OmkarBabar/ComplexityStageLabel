@@ -52,8 +52,7 @@ def form():
 @app.route('/data', methods=['POST'])
 def data():
 	if request.method == 'POST':
-		df = pandas.read_csv(request.files.get('csvfile'))
-		"""
+		
 		f = request.files['csvfile']
 		if not f:
 			return "No file"
@@ -70,7 +69,6 @@ def data():
 		result = stream.read()	
 		
 		df = pd.read_csv(StringIO(result))
-		"""
 		
 		#df['Prediction'] = df['Solution'].apply(make_prediction)
 		df['Prediction'] = df.apply(make_prediction)
