@@ -51,7 +51,7 @@ def make_prediction(strinput):
 def form():
     return render_template('index.html')
 
-app.config['UPLOAD_FOLDER'] = r"D:\upload"
+'UPLOAD_FOLDER' = r"D:\upload"
 
 @app.route('/data', methods=['POST'])
 def data():
@@ -60,10 +60,15 @@ def data():
 		if not file:
 			return "No file"
 		
-		filename = file.filename
-		file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
-		path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
-		df = pd.read_csv(path)
+		stream = io.TextIOWrapper(f.stream._file, "UTF8", newline=None)
+		csv_input = csv.reader(stream)
+		print(csv_input)
+		data =[]
+		for row in csv_input:
+			print(row)
+			data.append(row)
+	
+		df = DataFrame (data,columns=['Solution'])
 		
 		df['Prediction'] = df.apply(make_prediction)
 		
