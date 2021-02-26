@@ -81,33 +81,7 @@ def data():
 		
 		response = make_response(df.to_csv())
 		response.headers["Content-Disposition"] = "attachment; filename=result.csv"
-		return response			
-		
-		"""
-		f = request.files['csvfile']
-		if not f:
-			return "No file"
-		
-		#stream = io.StringIO(f)
-		stream = io.StringIO(f.stream.read().decode("UTF8"), newline=None)
-		csv_input = csv.reader(stream)
-		print(csv_input)
-
-		for row in csv_input:
-			print(row)
-		
-		stream.seek(0)
-		result = stream.read()	
-		
-		df = pd.read_csv(StringIO(result))
-		
-		#df['Prediction'] = df['Solution'].apply(make_prediction)
-		df['Prediction'] = df.apply(make_prediction)
-		
-		response = make_response(df.to_csv())
-		response.headers["Content-Disposition"] = "attachment; filename=result.csv"
 		return response
-		"""
 
 if __name__ == "__main__":
 	app.run(debug=True)
