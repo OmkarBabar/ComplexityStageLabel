@@ -60,9 +60,9 @@ def data():
 		if not file:
 			return "No file"
 		
-		filename = secure_filename(f.filename)
+		filename = secure_filename(file.filename)
 		
-		f.save(filename)
+		file.save(filename)
 		
 		df = pd.read_csv(filename, index_col='Date', parse_dates=True)
 		
