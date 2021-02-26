@@ -51,7 +51,6 @@ def make_prediction(strinput):
 def form():
     return render_template('index.html')
 
-'UPLOAD_FOLDER' = r"D:\upload"
 
 @app.route('/data', methods=['POST'])
 def data():
