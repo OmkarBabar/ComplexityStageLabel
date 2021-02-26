@@ -74,8 +74,8 @@ def data():
 		stream.seek(0)
 		result = transform(stream.read())
 		
-		#df = pd.read_csv(StringIO(result))
-		df = pd.read_csv(result)
+		df = pd.read_csv(StringIO(result))
+		#df = pd.read_csv(result)
 		
 		df['Prediction'] = df.apply(make_prediction)
 		
