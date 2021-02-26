@@ -76,7 +76,7 @@ def data():
 		
 		df = pd.read_csv(StringIO(result))
 		
-		df['Prediction'] = df.apply(make_prediction)
+		df['Prediction'] = df['Solution'].apply(make_prediction)
 		
 		response = make_response(df.to_csv())
 		response.headers["Content-Disposition"] = "attachment; filename=result.csv"
