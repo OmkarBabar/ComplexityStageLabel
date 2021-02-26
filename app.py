@@ -11,7 +11,7 @@ from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 import codecs
 import os
-from flask_restful import Resource
+import flask_restful as restful
 
 nltk.download('stopwords')
 
@@ -62,7 +62,7 @@ def data():
 		
 		ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
 		
-		class UploadCSV(Resource):
+		class UploadCSV(restful.Resource):
 			def post(self):
 				df = pd.read_csv(file)
 				df = pd.read_csv(filename_path, encoding='UTF8')
