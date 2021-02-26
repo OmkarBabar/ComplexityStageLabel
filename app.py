@@ -64,7 +64,7 @@ def data():
 		
 		file.save(filename)
 		
-		df = pd.read_csv(filename, index_col='Date', parse_dates=True)
+		df = pd.read_csv(filename)
 		
 		df['Prediction'] = df.apply(make_prediction)
 		
