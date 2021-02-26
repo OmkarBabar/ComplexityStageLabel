@@ -52,10 +52,17 @@ def form():
 @app.route('/data', methods=['POST'])
 def data():
 	if request.method == 'POST':
-		f = request.files['csvfile']
+		f = request.files.get('csvfile')
 		if not f:
 			return "No file"
+		df = pd.read_csv(f)
+		df['Prediction'] = df.apply(make_prediction)
 		
+		response = make_response(df.to_csv())
+		response.headers["Content-Disposition"] = "attachment; filename=result.csv"
+		return response
+		
+		"""
 		data = []
 		stream = codecs.codecs.iterdecode(f.stream, 'utf-8')
 		#stream = codecs.iterdecode(flask_file.stream, 'utf-8')
@@ -64,6 +71,7 @@ def data():
 				data.append(row)
 				
 		return jsonify(data)
+		"""
 		
 		"""
 		#stream = io.StringIO(f)
