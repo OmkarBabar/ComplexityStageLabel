@@ -9,6 +9,7 @@ import re
 import nltk
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
+import codecs
 
 nltk.download('stopwords')
 
@@ -55,6 +56,15 @@ def data():
 		if not f:
 			return "No file"
 		
+		data = []
+		stream = codecs.iterdecode(flask_file.stream, 'utf-8')
+		for row in csv.reader(stream, dialect=csv.excel):
+			if row:
+				data.append(row)
+				
+		return jsonify(data)
+		
+		"""
 		#stream = io.StringIO(f)
 		stream = io.StringIO(f.stream.read().decode("UTF8"), newline=None)
 		csv_input = csv.reader(stream)
@@ -68,7 +78,7 @@ def data():
 		
 		return render_template('data.html',data=result)
 		
-		"""
+		
 		df = pd.read_csv(StringIO(result))
 		
 		#df['Prediction'] = df['Solution'].apply(make_prediction)
