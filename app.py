@@ -57,7 +57,8 @@ def data():
 			return "No file"
 		
 		data = []
-		stream = codecs.iterdecode(flask_file.stream, 'utf-8')
+		stream = codecs.codecs.iterdecode(f.stream, 'utf-8')
+		#stream = codecs.iterdecode(flask_file.stream, 'utf-8')
 		for row in csv.reader(stream, dialect=csv.excel):
 			if row:
 				data.append(row)
