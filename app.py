@@ -65,7 +65,7 @@ def data():
 		result = stream.read()
 		
 		response = make_response(result)
-    		response.headers["Content-Disposition"] = "attachment; filename=result.csv"
+		response.headers["Content-Disposition"] = "attachment; filename=result.csv"
 		return response
     
 if __name__ == "__main__":
