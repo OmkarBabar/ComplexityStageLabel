@@ -12,6 +12,7 @@ from nltk.stem import WordNetLemmatizer
 import codecs
 import os
 
+
 nltk.download('stopwords')
 
 filename = 'model.pkl'
@@ -58,6 +59,8 @@ def data():
 			return "No file"
 		
 		THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
+		UPLOAD_FOLDER = os.path.join(THIS_FOLDER, 'static/uploads')
+		app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 		filename_path = os.path.join(THIS_FOLDER, file.filename)
 		
 		df = pd.read_csv(filename_path, encoding='UTF8')
