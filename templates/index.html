@@ -1,14 +1,10 @@
-
-
 <html>
             <body>
-                <p> Insert your CSV file and then download the Result
-                <form action="/transform" method="post" enctype="multipart/form-data">
-                    <input type="file" name="csvfile" class="btn btn-block"/>
-                    </br>
-                    </br>
-                    <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
+                <h1>YDNA Kit Grouping Program</h1>
+
+                <form action="/data" method="post" enctype="multipart/form-data">
+                    <input type="file" name="csvfile" />
+                    <input type="submit" />
                 </form>
             </body>
         </html>
-
