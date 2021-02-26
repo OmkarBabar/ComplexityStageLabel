@@ -52,7 +52,22 @@ def form():
 @app.route('/data', methods=['POST'])
 def data():
 	if request.method == 'POST':
+		file = request.files['csvfile']
+		if not file:
+			return "No file"
 		
+		THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
+		filename_path = os.path.join(THIS_FOLDER, file.filename)
+		
+		df = pd.read_csv(filename_path, encoding='UTF8')
+		
+		df['Prediction'] = df.apply(make_prediction)
+		
+		response = make_response(df.to_csv())
+		response.headers["Content-Disposition"] = "attachment; filename=result.csv"
+		return response
+		
+		"""
 		f = request.files['csvfile']
 		if not f:
 			return "No file"
@@ -76,6 +91,7 @@ def data():
 		response = make_response(df.to_csv())
 		response.headers["Content-Disposition"] = "attachment; filename=result.csv"
 		return response
+		"""
 
 if __name__ == "__main__":
 	app.run(debug=True)
