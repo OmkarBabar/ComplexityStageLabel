@@ -60,7 +60,10 @@ def data():
 		if not file:
 			return "No file"
 		
-		df = pd.read_csv(StringIO(file))
+		filename = file.filename
+		file.save(os.path.join(r"D:\upload", file.filename))
+		path = os.path.join(r"D:\upload", file.filename)
+		df = pd.read_csv(path)
 		
 		df['Prediction'] = df.apply(make_prediction)
 		
