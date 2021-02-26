@@ -11,11 +11,9 @@ from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 import codecs
 import os
-
+from flask_restful import Resource
 
 nltk.download('stopwords')
-
-UPLOAD_DIRECTORY = "/upload"
 
 filename = 'model.pkl'
 loaded_model    = pickle.load(open(filename, 'rb'))
@@ -62,16 +60,13 @@ def data():
 		if not file:
 			return "No file"
 		
-		filename_path = file.save(os.path.join(app.config['UPLOAD_FOLDER'],file.filename))
-		"""
-		THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
-		UPLOAD_FOLDER = os.path.join(THIS_FOLDER, 'static/uploads')
+		ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
 		
-		filename_path = os.path.join(THIS_FOLDER, file.filename)
-		"""
-		df = pd.read_csv(filename_path, encoding='UTF8')
-		
-		df['Prediction'] = df.apply(make_prediction)
+		class UploadCSV(Resource):
+			def post(self):
+				df = pd.read_csv(file)
+				df = pd.read_csv(filename_path, encoding='UTF8')
+				df['Prediction'] = df.apply(make_prediction)
 		
 		response = make_response(df.to_csv())
 		response.headers["Content-Disposition"] = "attachment; filename=result.csv"
