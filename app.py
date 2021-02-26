@@ -60,18 +60,17 @@ def data():
 		if not file:
 			return "No file"
 		
-		ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
+		filename = secure_filename(f.filename)
 		
-		class UploadCSV(restful.Resource):
-			def post(self):
-				df = pd.read_csv(file)
-				print(df)
-				#df = pd.read_csv(filename_path, encoding='UTF8')
-				df['Prediction'] = df.apply(make_prediction)
-				
-				response = make_response(df.to_csv())
-				response.headers["Content-Disposition"] = "attachment; filename=result.csv"
-				return response
+		f.save(filename)
+		
+		df = pd.read_csv(filename, index_col='Date', parse_dates=True)
+		
+		df['Prediction'] = df.apply(make_prediction)
+		
+		response = make_response(df.to_csv())
+		response.headers["Content-Disposition"] = "attachment; filename=result.csv"
+		return response			
 		
 		"""
 		f = request.files['csvfile']
