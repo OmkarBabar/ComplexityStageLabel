@@ -48,7 +48,7 @@ def make_prediction(strinput):
 def form():
     return render_template('index.html')
 
-@app.route('/data', methods=['GET','POST'])
+@app.route('/data', methods=['POST'])
 def data():
 	if request.method == 'POST':
 		f = request.files['csvfile']
