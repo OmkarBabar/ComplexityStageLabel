@@ -55,26 +55,7 @@ def data():
 		f = request.files['csvfile']
 		if not f:
 			return "No file"
-		f.save(os.path.join(ROOT_PATH,f.filename))
-		df = pd.read_csv(os.path.join(ROOT_PATH,f.filename))
-		df['Prediction'] = df.apply(make_prediction)
 		
-		response = make_response(df.to_csv())
-		response.headers["Content-Disposition"] = "attachment; filename=result.csv"
-		return response
-		
-		"""
-		data = []
-		stream = codecs.codecs.iterdecode(f.stream, 'utf-8')
-		#stream = codecs.iterdecode(flask_file.stream, 'utf-8')
-		for row in csv.reader(stream, dialect=csv.excel):
-			if row:
-				data.append(row)
-				
-		return jsonify(data)
-		"""
-		
-		"""
 		#stream = io.StringIO(f)
 		stream = io.StringIO(f.stream.read().decode("UTF8"), newline=None)
 		csv_input = csv.reader(stream)
@@ -84,10 +65,7 @@ def data():
 			print(row)
 		
 		stream.seek(0)
-		result = stream.read()
-		
-		return render_template('data.html',data=result)
-		
+		result = stream.read()	
 		
 		df = pd.read_csv(StringIO(result))
 		
@@ -97,6 +75,6 @@ def data():
 		response = make_response(df.to_csv())
 		response.headers["Content-Disposition"] = "attachment; filename=result.csv"
 		return response
-    		"""
+
 if __name__ == "__main__":
 	app.run(debug=True)
