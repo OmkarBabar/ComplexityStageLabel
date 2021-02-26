@@ -54,21 +54,11 @@ def data():
 		f = request.form['csvfile']
 		if not f:
 			return "No file"
-		data = []
-		with open(f) as file:
-			csvfile = csv.reader(file)
-			for row in csvfile:
-				data.append(row)
-		df = pd.DataFrame(data)
-		df['Prediction'] = df['Solution'].apply(make_prediction)
 		
-		response = make_response(df.to_csv())
-		response.headers["Content-Disposition"] = "attachment; filename=result.csv"
-		return response
-		"""
 		stream = io.StringIO(f)
 		#stream = io.StringIO(f.stream.read().decode("UTF8"), newline=None)
-		csv_input = csv.reader(f)
+		csv_input = csv.reader(stream)
+		print(csv_input)
 
 		for row in csv_input:
 			print(row)
@@ -84,6 +74,6 @@ def data():
 		response = make_response(df.to_csv())
 		response.headers["Content-Disposition"] = "attachment; filename=result.csv"
 		return response
-    		"""
+    		
 if __name__ == "__main__":
 	app.run(debug=True)
