@@ -15,6 +15,8 @@ import os
 
 nltk.download('stopwords')
 
+UPLOAD_DIRECTORY = "/upload"
+
 filename = 'model.pkl'
 loaded_model    = pickle.load(open(filename, 'rb'))
 lb_make  = pickle.load(open('label.pkl','rb'))
@@ -51,6 +53,8 @@ def make_prediction(strinput):
 def form():
     return render_template('index.html')
 
+app.config['UPLOAD_FOLDER'] = "D:\upload"
+
 @app.route('/data', methods=['POST'])
 def data():
 	if request.method == 'POST':
@@ -58,11 +62,13 @@ def data():
 		if not file:
 			return "No file"
 		
+		filename_path = file.save(os.path.join(app.config['UPLOAD_FOLDER'],file.filename))
+		"""
 		THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
 		UPLOAD_FOLDER = os.path.join(THIS_FOLDER, 'static/uploads')
-		app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-		filename_path = os.path.join(THIS_FOLDER, file.filename)
 		
+		filename_path = os.path.join(THIS_FOLDER, file.filename)
+		"""
 		df = pd.read_csv(filename_path, encoding='UTF8')
 		
 		df['Prediction'] = df.apply(make_prediction)
