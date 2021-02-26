@@ -50,52 +50,22 @@ def form():
 
 @app.route('/data', methods=['GET','POST'])
 def data():
-	"""
 	if request.method == 'POST':
+		f = request.form['csvfile']
+		if not f:
+			return "No file"
 		
+		stream = io.StringIO(f.stream.read().decode("UTF8"), newline=None)
+		csv_input = csv.reader(stream)
 		data = []
-		with open(f) as file:
-			csvfile = csv.reader(file)
-			for row in csvfile:
-				data.append(row)
+		for row in csv_input:
+			data.append(row)
 		
 		data = pd.DataFrame(data)
 		
 		#df['prediction'] = df['Solution'].apply(make_prediction)
 		
 		return render_template('data.html',data=data.to_html(header = False, index = False))
-	
-	"""
-	f = request.form['csvfile']
-	if not f:
-		return "No file"
-
-    	stream = io.StringIO(f.stream.read().decode("UTF8"), newline=None)
-    	csv_input = csv.reader(stream)
-	data = []
-	for row in csv_input:
-        	data.append(row)
-	
-	data = pd.DataFrame(data)
-	
-	return render_template('data.html',data=data.to_html(header = False, index = False))
-	
-	"""
-    	stream.seek(0)
-    	result = stream.read()
-    	#result = transform(stream.read())
-
-    	df = pd.read_csv(StringIO(result), usecols=[1])
-    
-    
-    	df['prediction'] = df['Solution'].apply(make_prediction)
-    	#df['prediction'] = df.apply(make_prediction)
-
-    	response = make_response(df.to_csv())
-    	response.headers["Content-Disposition"] = "attachment; filename=result.csv"
-  
-    	return response
-	"""
     
 if __name__ == "__main__":
 	app.debug = True
