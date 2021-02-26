@@ -57,15 +57,16 @@ def data():
 		
 		stream = io.StringIO(f.stream.read().decode("UTF8"), newline=None)
 		csv_input = csv.reader(stream)
-		data = []
+
 		for row in csv_input:
-			data.append(row)
+			print(row)
 		
-		data = pd.DataFrame(data)
+		stream.seek(0)
+		result = stream.read()
 		
-		#df['prediction'] = df['Solution'].apply(make_prediction)
-		
-		return render_template('data.html',data=data.to_html(header = False, index = False))
+		response = make_response(result)
+    		response.headers["Content-Disposition"] = "attachment; filename=result.csv"
+		return response
     
 if __name__ == "__main__":
 	app.debug = True
