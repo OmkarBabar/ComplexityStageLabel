@@ -63,7 +63,7 @@ def data():
 		for row in csv_input:
 			print(row)
 		
-		stream.seek()
+		stream.seek(0)
 		result = stream.read()
 		
 		df = pd.read_csv(StringIO(result))
