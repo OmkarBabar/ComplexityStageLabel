@@ -47,6 +47,9 @@ def make_prediction(strinput):
 
 	  return str1
 
+def transform(text_file_contents):
+	return text_file_contents.replace("=", ",")
+
 @app.route('/')
 def form():
     return render_template('index.html')
@@ -66,8 +69,9 @@ def data():
 		for row in csv_input:
 			print(row)
 			data.append(row)
-	
-		df = DataFrame (data,columns=['Solution'])
+		
+		stream.seek(0)
+		result = transform(stream.read())
 		
 		df['Prediction'] = df.apply(make_prediction)
 		
