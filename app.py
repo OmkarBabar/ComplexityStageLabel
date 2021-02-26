@@ -55,8 +55,9 @@ def data():
 		if not f:
 			return "No file"
 		
-		stream = io.StringIO(f.stream.read().decode("UTF8"), newline=None)
-		csv_input = csv.reader(stream)
+		stream = io.StringIO(f)
+		#stream = io.StringIO(f.stream.read().decode("UTF8"), newline=None)
+		csv_input = csv.reader(f)
 
 		for row in csv_input:
 			print(row)
