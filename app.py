@@ -60,11 +60,7 @@ def data():
 		if not file:
 			return "No file"
 		
-		filename = secure_filename(file.filename)
-		
-		file.save(filename)
-		
-		df = pd.read_csv(filename)
+		df = pd.read_csv(StringIO(file))
 		
 		df['Prediction'] = df.apply(make_prediction)
 		
