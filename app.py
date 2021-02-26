@@ -61,8 +61,8 @@ def data():
 			return "No file"
 		
 		filename = file.filename
-		file.save(os.path.join(r"D:\upload", file.filename))
-		path = os.path.join(r"D:\upload", file.filename)
+		file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
+		path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
 		df = pd.read_csv(path)
 		
 		df['Prediction'] = df.apply(make_prediction)
