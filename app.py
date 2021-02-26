@@ -52,7 +52,7 @@ def form():
 @app.route('/data', methods=['POST'])
 def data():
 	if request.method == 'POST':
-		df = pandas.read_csv(request.files.get('uploaded_file'))
+		df = pandas.read_csv(request.files.get('csvfile'))
 		"""
 		f = request.files['csvfile']
 		if not f:
