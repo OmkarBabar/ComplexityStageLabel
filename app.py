@@ -65,6 +65,7 @@ def data():
 		class UploadCSV(restful.Resource):
 			def post(self):
 				df = pd.read_csv(file)
+				print(df)
 				#df = pd.read_csv(filename_path, encoding='UTF8')
 				df['Prediction'] = df.apply(make_prediction)
 				
