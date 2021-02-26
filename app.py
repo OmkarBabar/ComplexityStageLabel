@@ -66,11 +66,11 @@ def data():
 			def post(self):
 				df = pd.read_csv(file)
 				#df = pd.read_csv(filename_path, encoding='UTF8')
-				df['Prediction'] = df['Solution'].apply(make_prediction)
+				df['Prediction'] = df.apply(make_prediction)
 				
-				response = make_response(df.to_csv())
-				response.headers["Content-Disposition"] = "attachment; filename=result.csv"
-				return response
+			response = make_response(df.to_csv())
+			response.headers["Content-Disposition"] = "attachment; filename=result.csv"
+			return response
 		
 		"""
 		f = request.files['csvfile']
