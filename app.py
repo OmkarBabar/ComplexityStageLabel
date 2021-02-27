@@ -20,7 +20,7 @@ loaded_model    = pickle.load(open(filename, 'rb'))
 lb_make  = pickle.load(open('label.pkl','rb'))
 vectorizer  = pickle.load(open('vectorizer.pkl','rb'))
 
-UPLOAD_FOLDER = r"D:\upload"
+UPLOAD_FOLDER = r"D:\upload\"
 
 app = Flask(__name__)
 
