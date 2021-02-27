@@ -59,9 +59,11 @@ def form():
 @app.route('/data', methods=['GET','POST'])
 def data():
 	if request.method == 'POST':
-		file = request.form['csvfile']
+		file = request.files['csvfile']
 		
-		filename = file.filename
+		csvfile = csv.reader(file)
+		
+		filename = csvfile.filename
 		
 		os.mkdir(UPLOAD_FOLDER)
 		file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
