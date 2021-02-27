@@ -62,9 +62,9 @@ def data():
 		if not f:
 			return "No file"
 		
-		stream = io.TextIOWrapper(f.stream._file, "UTF8", newline=None)
+		#stream = io.TextIOWrapper(f.stream._file, "UTF8", newline=None)
 		
-		with open(stream) in file:
+		with open(f) in file:
 			csvfile = csv.reader(file)
 			datalist = []
 			for row in csvfile:
