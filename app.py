@@ -60,8 +60,6 @@ def form():
 def data():
 	if request.method == 'POST':
 		file = request.form['csvfile']
-		if not f:
-			return "No file"
 		
 		filename = file.filename
 		
