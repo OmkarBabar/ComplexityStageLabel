@@ -68,7 +68,7 @@ def data():
 		os.mkdir(UPLOAD_FOLDER)
 		file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 		df = pd.read_csv(os.path.join(UPLOAD_FOLDER, sorted(os.listdir(app.config['UPLOAD_FOLDER']))[0]))
-		df['Prediction'] = df.apply(make_prediction)
+		df['Prediction'] = df['Solution'].apply(make_prediction)
 		
 		response = make_response(df.to_csv())
 		response.headers["Content-Disposition"] = "attachment; filename=result.csv"
