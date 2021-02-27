@@ -58,7 +58,7 @@ def form():
 @app.route('/data', methods=['GET','POST'])
 def data():
 	if request.method == 'POST':
-		f = request.form['csvfile']
+		f = request.files['csvfile']
 		if not f:
 			return "No file"
 		
