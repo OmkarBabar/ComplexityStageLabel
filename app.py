@@ -12,6 +12,7 @@ from nltk.stem import WordNetLemmatizer
 import codecs
 import os
 import flask_restful as restful
+from werkzeug.utils import secure_filename
 
 nltk.download('stopwords')
 
@@ -20,9 +21,11 @@ loaded_model    = pickle.load(open(filename, 'rb'))
 lb_make  = pickle.load(open('label.pkl','rb'))
 vectorizer  = pickle.load(open('vectorizer.pkl','rb'))
 
-UPLOAD_FOLDER = r"D:\upload"
+UPLOAD_FOLDER = 'D:/uploads'
 
 app = Flask(__name__)
+
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 all_stopwords = stopwords.words('english')
 
@@ -59,9 +62,11 @@ def form():
 @app.route('/data', methods=['GET','POST'])
 def data():
 	if request.method == 'POST':
-		file = request.form['csvfile']
+		file = request.files['csvfile']
 		
-		df = pd.read_csv(UPLOAD_FOLDER + file)
+		filename = secure_filename(file.filename)
+		file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+		df = pd.read_csv(os.path.join(UPLOAD_FOLDER, sorted(os.listdir(app.config['UPLOAD_FOLDER']))[0]))
 		
 		df['Prediction'] = df['Solution'].apply(make_prediction)
 		
