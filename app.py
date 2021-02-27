@@ -55,12 +55,21 @@ def form():
     return render_template('index.html')
 
 
-@app.route('/data', methods=['POST'])
+@app.route('/data', methods=['GET','POST'])
 def data():
 	if request.method == 'POST':
-		file = request.files['csvfile']
-		if not file:
+		f = request.form['csvfile']
+		if not f:
 			return "No file"
+		
+		with open(f) in file:
+			csvfile = csv.reader(file)
+			data = []
+			for row in csvfile:
+				data.append(row)
+		return render_template('data.html',data=data)
+			
+		"""
 		
 		stream = io.TextIOWrapper(file.stream._file, "UTF8", newline=None)
 		#stream = io.StringIO(file.stream.read().decode("UTF8"), newline=None)
@@ -82,6 +91,6 @@ def data():
 		response = make_response(df.to_csv())
 		response.headers["Content-Disposition"] = "attachment; filename=result.csv"
 		return response
-
+		"""
 if __name__ == "__main__":
 	app.run(debug=True)
