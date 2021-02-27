@@ -61,7 +61,7 @@ def data():
 	if request.method == 'POST':
 		file = request.form['csvfile']
 		
-		df = pd.read_csv(UPLOAD_FOLDER +"\"+ file)
+		df = pd.read_csv(UPLOAD_FOLDER +'\'+ file)
 		
 		df['Prediction'] = df['Solution'].apply(make_prediction)
 		
