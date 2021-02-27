@@ -20,6 +20,7 @@ loaded_model    = pickle.load(open(filename, 'rb'))
 lb_make  = pickle.load(open('label.pkl','rb'))
 vectorizer  = pickle.load(open('vectorizer.pkl','rb'))
 
+UPLOAD_FOLDER = r"D:\upload"
 
 app = Flask(__name__)
 
@@ -61,7 +62,18 @@ def data():
 		file = request.files['csvfile']
 		if not f:
 			return "No file"
-			
+		
+		filename = file.filename
+		
+		os.mkdir(UPLOAD_FOLDER)
+		file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+		df = pd.read_csv(os.path.join(UPLOAD_FOLDER, sorted(os.listdir(app.config['UPLOAD_FOLDER']))[0]))
+		df['Prediction'] = df.apply(make_prediction)
+		
+		response = make_response(df.to_csv())
+		response.headers["Content-Disposition"] = "attachment; filename=result.csv"
+		return response
+		"""
 		stream = io.TextIOWrapper(file.stream._file, "UTF8", newline=None)
 		#stream = io.StringIO(file.stream.read().decode("UTF8"), newline=None)
 		csv_input = csv.reader(stream)
@@ -82,6 +94,7 @@ def data():
 		response = make_response(df.to_csv())
 		response.headers["Content-Disposition"] = "attachment; filename=result.csv"
 		return response
+		"""
 
 if __name__ == "__main__":
 	app.run(debug=True)
