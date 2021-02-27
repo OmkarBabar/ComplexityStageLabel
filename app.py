@@ -66,10 +66,10 @@ def data():
 		
 		with open(stream) in file:
 			csvfile = csv.reader(file)
-			data = []
+			datalist = []
 			for row in csvfile:
-				data.append(row)
-		return render_template('data.html',data=data)
+				datalist.append(row)
+		return render_template('index.html',data=datalist)
 			
 		"""
 		
