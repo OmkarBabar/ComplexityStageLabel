@@ -20,7 +20,7 @@ loaded_model    = pickle.load(open(filename, 'rb'))
 lb_make  = pickle.load(open('label.pkl','rb'))
 vectorizer  = pickle.load(open('vectorizer.pkl','rb'))
 
-UPLOAD_FOLDER = r"D:\upload\"
+UPLOAD_FOLDER = r"D:\upload"
 
 app = Flask(__name__)
 
@@ -61,7 +61,7 @@ def data():
 	if request.method == 'POST':
 		file = request.form['csvfile']
 		
-		df = pd.read_csv(UPLOAD_FOLDER + file)
+		df = pd.read_csv(UPLOAD_FOLDER +"\"+ file)
 		
 		df['Prediction'] = df['Solution'].apply(make_prediction)
 		
