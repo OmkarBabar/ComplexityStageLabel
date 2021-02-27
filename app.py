@@ -62,8 +62,16 @@ def form():
 @app.route('/data', methods=['GET','POST'])
 def data():
 	if request.method == 'POST':
-		file = request.files['csvfile']
+		file = request.form['csvfile']
 		
+		with open(file) in file:
+			csvfile = csv.reader(file)
+			data = []
+			for row in csvfile:
+				data.append(row)
+		return render_template('data.html',data=data)
+	
+		"""
 		filename = secure_filename(file.filename)
 		file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 		df = pd.read_csv(os.path.join(UPLOAD_FOLDER, sorted(os.listdir(app.config['UPLOAD_FOLDER']))[0]))
@@ -73,6 +81,7 @@ def data():
 		response = make_response(df.to_csv())
 		response.headers["Content-Disposition"] = "attachment; filename=result.csv"
 		return response
+		"""
 		
 		"""
 		csvfile = csv.reader(file)
