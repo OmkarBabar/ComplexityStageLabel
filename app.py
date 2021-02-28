@@ -67,6 +67,9 @@ def data():
 		file = request.files['csvfile']
 		filename = secure_filename(file.filename)
 		
+		session = boto3.Session( aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
+		s3 = session.resource('s3')
+		
 		s3 = boto3.resource('s3')
 		s3.Bucket(S3_BUCKET).put_object(Key=filename,Body=request.files['csvfile'])
 		
