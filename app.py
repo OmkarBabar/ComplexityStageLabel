@@ -66,6 +66,10 @@ def form():
 def data():
 	if request.method == 'POST':
 		
+		print('S3_BUCKET',S3_BUCKET)
+		print('AWS_ACCESS_KEY_ID',AWS_ACCESS_KEY_ID)
+		print('AWS_SECRET_ACCESS_KEY',AWS_SECRET_ACCESS_KEY)
+	
 		file = request.files['csvfile']
 		filename = secure_filename(file.filename)
 		client.upload_file(file,S3_BUCKET,filename)
