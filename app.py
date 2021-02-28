@@ -15,7 +15,7 @@ import flask_restful as restful
 from werkzeug.utils import secure_filename
 import boto3
 
-nltk.download('stopwords')
+#nltk.download('stopwords')
 
 filename = 'model.pkl'
 loaded_model    = pickle.load(open(filename, 'rb'))
