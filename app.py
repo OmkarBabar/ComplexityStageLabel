@@ -62,14 +62,28 @@ def form():
 @app.route('/data', methods=['GET','POST'])
 def data():
 	if request.method == 'POST':
-		file = request.form['csvfile']
+		print("ggggggggg", request.files)
+		file = request.files['csvfile']
+		file.save(os.path.join("uploads", file.filename))
 		
-		with open(file) in file:
-			csvfile = csv.reader(file)
-			data = []
-			for row in csvfile:
-				data.append(row)
-		return render_template('data.html',data=data)
+		f = request.files['csvfile']
+		if not f:
+			return "No file"
+		
+		stream = io.TextIOWrapper(f.stream._file, "UTF8", newline=None)
+		
+		csv_input = csv.reader(stream)
+		
+		print(csv_input)
+		for row in csv_input:
+			print(row)
+			
+		stream.seek(0)
+		result = transform(stream.read())
+
+		response = make_response(result)
+		response.headers["Content-Disposition"] = "attachment; filename=omiresult.csv"
+		return response
 	
 		"""
 		filename = secure_filename(file.filename)
