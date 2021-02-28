@@ -7,7 +7,7 @@ import numpy as np
 import pickle
 import re
 import nltk
-from nltk.corpus import stopwords
+#from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 import codecs
 import os
@@ -15,7 +15,23 @@ import flask_restful as restful
 from werkzeug.utils import secure_filename
 import boto3
 
-nltk.download('stopwords')
+#nltk.download('stopwords')
+
+all_stopwords= ['i', 'me', 'my', 'myself', 'we', 'our', 'ours', 'ourselves', 'you', "you're", "you've",\
+            "you'll", "you'd", 'your', 'yours', 'yourself', 'yourselves', 'he', 'him', 'his', 'himself', \
+            'she', "she's", 'her', 'hers', 'herself', 'it', "it's", 'its', 'itself', 'they', 'them', 'their',\
+            'theirs', 'themselves', 'what', 'which', 'who', 'whom', 'this', 'that', "that'll", 'these', 'those', \
+            'am', 'is', 'are', 'was', 'were', 'be', 'been', 'being', 'have', 'has', 'had', 'having', 'do', 'does', \
+            'did', 'doing', 'a', 'an', 'the', 'and', 'but', 'if', 'or', 'because', 'as', 'until', 'while', 'of', \
+            'at', 'by', 'for', 'with', 'about', 'against', 'between', 'into', 'through', 'during', 'before', 'after',\
+            'above', 'below', 'to', 'from', 'up', 'down', 'in', 'out', 'on', 'off', 'over', 'under', 'again', 'further',\
+            'then', 'once', 'here', 'there', 'when', 'where', 'why', 'how', 'all', 'any', 'both', 'each', 'few', 'more',\
+            'most', 'other', 'some', 'such', 'only', 'own', 'same', 'so', 'than', 'too', 'very', \
+            's', 't', 'can', 'will', 'just', 'don', "don't", 'should', "should've", 'now', 'd', 'll', 'm', 'o', 're', \
+            've', 'y', 'ain', 'aren', "aren't", 'couldn', "couldn't", 'didn', "didn't", 'doesn', "doesn't", 'hadn',\
+            "hadn't", 'hasn', "hasn't", 'haven', "haven't", 'isn', "isn't", 'ma', 'mightn', "mightn't", 'mustn',\
+            "mustn't", 'needn', "needn't", 'shan', "shan't", 'shouldn', "shouldn't", 'wasn', "wasn't", 'weren', "weren't", \
+            'won', "won't", 'wouldn', "wouldn't"]
 
 filename = 'model.pkl'
 loaded_model    = pickle.load(open(filename, 'rb'))
@@ -30,7 +46,7 @@ ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
 
 app = Flask(__name__)
 
-all_stopwords = stopwords.words('english')
+#all_stopwords = stopwords.words('english')
 
 lemmatizer = WordNetLemmatizer()
 
@@ -112,89 +128,6 @@ def data():
 		response.headers["Content-Disposition"] = "attachment; filename=result.csv"
 		return response
 		
-		"""
-		session = boto3.Session( aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
-		s3 = session.resource('s3')
-		
-		s3.Bucket(S3_BUCKET).put_object(Key=filename,Body=request.files['csvfile'])
-		"""
-		
-		
-		
-		"""
-		#print("ggggggggg", request.files)
-		#file = request.files['csvfile']
-		#file.save(os.path.join(UPLOAD_FOLDER, file.filename))
-		
-		f = request.files['csvfile']
-		print("filename ", f.filename)
-		if not f:
-			return "No file"
-		
-		stream = io.TextIOWrapper(f.stream._file, "UTF8", newline=None)
-		
-		csv_input = csv.reader(stream)
-		
-		print(csv_input)
-		for row in csv_input:
-			print(row)
-			
-		stream.seek(0)
-		result = transform(stream.read())
-
-		response = make_response(result)
-		response.headers["Content-Disposition"] = "attachment; filename=omiresult.csv"
-		return response
-		"""
-	
-		"""
-		filename = secure_filename(file.filename)
-		file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-		df = pd.read_csv(os.path.join(UPLOAD_FOLDER, sorted(os.listdir(app.config['UPLOAD_FOLDER']))[0]))
-		
-		df['Prediction'] = df['Solution'].apply(make_prediction)
-		
-		response = make_response(df.to_csv())
-		response.headers["Content-Disposition"] = "attachment; filename=result.csv"
-		return response
-		"""
-		
-		"""
-		csvfile = csv.reader(file)
-		
-		filename = csvfile.filename
-		
-		os.mkdir(UPLOAD_FOLDER)
-		file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-		df = pd.read_csv(os.path.join(UPLOAD_FOLDER, sorted(os.listdir(app.config['UPLOAD_FOLDER']))[0]))
-		df['Prediction'] = df['Solution'].apply(make_prediction)
-		
-		response = make_response(df.to_csv())
-		response.headers["Content-Disposition"] = "attachment; filename=result.csv"
-		return response
-		"""
-		"""
-		stream = io.TextIOWrapper(file.stream._file, "UTF8", newline=None)
-		#stream = io.StringIO(file.stream.read().decode("UTF8"), newline=None)
-		csv_input = csv.reader(stream)
-		print(csv_input)
-		data =[]
-		for row in csv_input:
-			print(row)
-			data.append(row)
-		
-		#stream.seek(0)
-		result = transform(stream.read())
-		
-		df = pd.read_csv(StringIO(result))
-		#df = pd.read_csv(result)
-		
-		df['Prediction'] = df.apply(make_prediction)
-		
-		response = make_response(df.to_csv())
-		response.headers["Content-Disposition"] = "attachment; filename=result.csv"
-		return response
-		"""
 
 if __name__ == "__main__":
 	app.run(host='0.0.0.0', port = 8080)
