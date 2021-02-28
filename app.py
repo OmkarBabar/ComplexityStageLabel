@@ -87,11 +87,8 @@ def data():
 		
 		filename = secure_filename(file.filename)
 		
-		s3.Bucket(S3_BUCKET).put_object(Key=filename,Body=file)
-		
-		#presigned_post = s3.generate_presigned_post(Bucket = S3_BUCKET,Key = filename)
-		
-		#s3.upload_fileobj(result,S3_BUCKET,filename)
+		s3.Bucket(S3_BUCKET).Object(filename).upload_file(file)
+		#s3.Bucket(S3_BUCKET).put_object(Key=filename,Body=file)
 		
 		return '<h1>success</h>'
 		
