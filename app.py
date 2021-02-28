@@ -79,8 +79,10 @@ def data():
 	
 		file = request.files['csvfile']
 		filename = secure_filename(file.filename)
+		
+		presigned_post = s3.generate_presigned_post(Bucket = S3_BUCKET,Key = file,Fields = {"acl": "public-read", "Content-Type": file_type},Conditions = [{"acl": "public-read"},{"Content-Type": file_type}],ExpiresIn = 3600)
 
-		s3.upload_fileobj(filename,S3_BUCKET,file)
+		#s3.upload_fileobj(filename,S3_BUCKET,file)
 		
 		return '<h1>success</h>'
 		
