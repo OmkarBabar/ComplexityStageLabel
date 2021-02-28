@@ -85,7 +85,9 @@ def data():
 	
 		file = request.files['csvfile']
 		
-		filename = secure_filename(file.filename)
+		stream = io.TextIOWrapper(f.stream._file, "UTF8", newline=None)
+		
+		filename = secure_filename(stream.filename)
 		
 		s3.Bucket(S3_BUCKET).put_object(Key=filename,Body=file)
 		
