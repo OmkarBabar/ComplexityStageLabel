@@ -13,9 +13,10 @@ import codecs
 import os
 import flask_restful as restful
 from werkzeug.utils import secure_filename
-import boto
-from boto.s3.connection import S3Connection
-from boto.s3.key import Key
+import boto3
+
+
+bucket_resource.upload_file(Bucket = BUCKET, Filename=picture_fn, Key=picture_fn) # uploading
 
 nltk.download('stopwords')
 
@@ -68,11 +69,10 @@ def data():
 		
 		file = request.files['csvfile']
 		filename = secure_filename(file.filename)
-		s3 = boto.connect_s3()
-		bucket = s3.create_bucket('my_bucket')
-		key = bucket.new_key(filename)
-		key.set_contents_from_file(file, headers=None, replace=True, cb=None, num_cb=10, policy=None, md5=None) 
-		return 'successful upload'
+		s3 = boto3.resource('s3')
+		s3.Bucket('complexitystage').put_object(Key=filename,Body=file)
+		
+		return '<h1>success</h>
 		
 		
 		"""
