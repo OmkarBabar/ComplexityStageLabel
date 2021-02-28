@@ -22,7 +22,9 @@ loaded_model    = pickle.load(open(filename, 'rb'))
 lb_make  = pickle.load(open('label.pkl','rb'))
 vectorizer  = pickle.load(open('vectorizer.pkl','rb'))
 
-UPLOAD_FOLDER = 'D:/uploads'
+S3_BUCKET = os.environ.get('S3_BUCKET')
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 
 app = Flask(__name__)
 
@@ -63,14 +65,13 @@ def form():
 @app.route('/data', methods=['GET','POST'])
 def data():
 	if request.method == 'POST':
-		S3_BUCKET = os.environ.get('S3_BUCKET')
+		
 		file = request.files['csvfile']
 		filename = secure_filename(file.filename)
 		
 		session = boto3.Session( aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
 		s3 = session.resource('s3')
 		
-		s3 = boto3.resource('s3')
 		s3.Bucket(S3_BUCKET).put_object(Key=filename,Body=request.files['csvfile'])
 		
 		return '<h1>success</h>'
