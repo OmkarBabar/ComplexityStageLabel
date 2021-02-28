@@ -85,12 +85,9 @@ def data():
 	
 		file = request.files['csvfile']
 		
-		stream = io.TextIOWrapper(file.stream._file, "UTF8", newline=None)
+		filename = secure_filename(file.filename)
 		
-		filename = secure_filename(stream.filename)
-		
-		s3.Bucket(S3_BUCKET).put_object(Key=filename,Body=stream)
-		#s3.Bucket(S3_BUCKET).put_object(Key=filename,Body=file)
+		s3.Bucket(S3_BUCKET).put_object(Key=filename,Body=file)
 		
 		#presigned_post = s3.generate_presigned_post(Bucket = S3_BUCKET,Key = filename)
 		
