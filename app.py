@@ -97,7 +97,7 @@ def data():
 		
 		print("ggggggggg", request.files)
 		file = request.files['csvfile']
-		file.save(os.path.join("apps", file.filename))
+		file.save(os.path.join(ROOT_PATH, file.filename))
 		# print("ccccccccccccccccccccccccc", file)
 
 		stream = io.TextIOWrapper(file.stream._file, "UTF8", newline=None)
