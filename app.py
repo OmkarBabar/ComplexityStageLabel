@@ -82,11 +82,19 @@ def data():
 			print('Failed..............')
 	
 		file = request.files['csvfile']
+		
+		stream = io.TextIOWrapper(file.stream._file, "UTF8", newline=None)
+		csv_input = csv.reader(stream)
+		print(csv_input)
+		
+		stream.seek(0)
+		result = transform(stream.read())
+		
 		filename = secure_filename(file.filename)
 		
-		presigned_post = s3.generate_presigned_post(Bucket = S3_BUCKET,Key = filename,Fields = {"acl": "public-read", "Content-Type": file_type},Conditions = [{"acl": "public-read"},{"Content-Type": file_type}],ExpiresIn = 3600)
+		#presigned_post = s3.generate_presigned_post(Bucket = S3_BUCKET,Key = filename,Fields = {"acl": "public-read", "Content-Type": file_type},Conditions = [{"acl": "public-read"},{"Content-Type": file_type}],ExpiresIn = 3600)
 
-		#s3.upload_fileobj(filename,S3_BUCKET,file)
+		s3.upload_fileobj(result,S3_BUCKET,filename)
 		
 		return '<h1>success</h>'
 		
