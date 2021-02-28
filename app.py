@@ -1,5 +1,4 @@
 from flask import Flask, make_response, request, render_template,jsonify
-from secrets import access_key,secret_access_key
 import io
 from io import StringIO
 import csv
@@ -27,7 +26,7 @@ S3_BUCKET = os.environ.get('S3_BUCKET')
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 
-client = boto3.client('s3',aws_access_key_id=access_key, aws_secret_access_key=secret_access_key)
+client = boto3.client('s3',aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
 
 app = Flask(__name__)
 
