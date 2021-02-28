@@ -67,6 +67,7 @@ def form():
 def data():
 	if request.method == 'POST':
 		
+		"""
 		print(ROOT_PATH)
 		
 		print('S3_BUCKET',S3_BUCKET)
@@ -92,6 +93,21 @@ def data():
 		s3.Bucket(S3_BUCKET).Object(file.filename).put(Body=file.read())
 		
 		return '<h1>success</h>'
+		"""
+		
+		print("ggggggggg", request.files)
+		file = request.files['csvfile']
+		file.save(os.path.join("apps", file.filename))
+		# print("ccccccccccccccccccccccccc", file)
+
+		stream = io.TextIOWrapper(file.stream._file, "UTF8", newline=None)
+
+		stream.seek(0)
+		result = transform(stream.read())
+		
+		response = make_response(result)
+		response.headers["Content-Disposition"] = "attachment; filename=omiresult.csv"
+		return response
 		
 		"""
 		session = boto3.Session( aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
