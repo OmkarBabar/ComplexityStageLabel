@@ -84,12 +84,6 @@ def data():
 	
 		file = request.files['csvfile']
 		
-		SavePath = os.path.join(ROOT_PATH + "/" + app.config['UPLOAD_FOLDER'])
-		
-		print("SavePath...........",SavePath)
-		
-		file.save(SavePath)
-		
 		filename = secure_filename(file.filename)
 		
 		s3.Bucket(S3_BUCKET).put_object(Key=filename,Body=file)
