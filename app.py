@@ -77,8 +77,8 @@ def data():
 	
 		file = request.files['csvfile']
 		filename = secure_filename(file.filename)
-		file.save(filename)
-		client.upload_file(Bucket=S3_BUCKET,Filename=filename,Key=filename)
+		
+		client.upload_fileobj(file,S3_BUCKET,filename)
 		
 		return '<h1>success</h>'
 		
@@ -167,6 +167,7 @@ def data():
 		"""
 
 if __name__ == "__main__":
+	app.debug = True
 	port = int(os.environ.get('PORT', 5000))
 	app.run(host='0.0.0.0', port = port)
 	#app.run(debug=True)
