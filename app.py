@@ -13,6 +13,9 @@ import codecs
 import os
 import flask_restful as restful
 from werkzeug.utils import secure_filename
+import boto
+from boto.s3.connection import S3Connection
+from boto.s3.key import Key
 
 nltk.download('stopwords')
 
@@ -62,6 +65,17 @@ def form():
 @app.route('/data', methods=['GET','POST'])
 def data():
 	if request.method == 'POST':
+		
+		file = request.files['csvfile']
+		filename = secure_filename(file.filename)
+		s3 = boto.connect_s3()
+		bucket = s3.create_bucket('my_bucket')
+		key = bucket.new_key(filename)
+		key.set_contents_from_file(file, headers=None, replace=True, cb=None, num_cb=10, policy=None, md5=None) 
+		return 'successful upload'
+		
+		
+		"""
 		#print("ggggggggg", request.files)
 		#file = request.files['csvfile']
 		#file.save(os.path.join(UPLOAD_FOLDER, file.filename))
@@ -85,6 +99,7 @@ def data():
 		response = make_response(result)
 		response.headers["Content-Disposition"] = "attachment; filename=omiresult.csv"
 		return response
+		"""
 	
 		"""
 		filename = secure_filename(file.filename)
