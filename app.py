@@ -62,9 +62,9 @@ def form():
 @app.route('/data', methods=['GET','POST'])
 def data():
 	if request.method == 'POST':
-		print("ggggggggg", request.files)
-		file = request.files['csvfile']
-		file.save(os.path.join(UPLOAD_FOLDER, file.filename))
+		#print("ggggggggg", request.files)
+		#file = request.files['csvfile']
+		#file.save(os.path.join(UPLOAD_FOLDER, file.filename))
 		
 		f = request.files['csvfile']
 		print("filename ", f.filename)
