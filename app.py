@@ -72,7 +72,7 @@ def data():
 		s3 = boto3.resource('s3')
 		s3.Bucket('complexitystage').put_object(Key=filename,Body=file)
 		
-		return '<h1>success</h>
+		return '<h1>success</h>'
 		
 		
 		"""
