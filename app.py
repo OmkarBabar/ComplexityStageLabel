@@ -91,10 +91,6 @@ def data():
 		
 		#presigned_post = s3.generate_presigned_post(Bucket = S3_BUCKET,Key = filename)
 		
-		if presigned_post:
-			print("Load Sucee...............")
-		else:
-			print("Load Fail...............")
 		#s3.upload_fileobj(result,S3_BUCKET,filename)
 		
 		return '<h1>success</h>'
