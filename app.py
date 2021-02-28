@@ -80,7 +80,7 @@ def data():
 		file = request.files['csvfile']
 		filename = secure_filename(file.filename)
 
-		s3.upload_fileobj(file,S3_BUCKET,filename)
+		s3.upload_fileobj(filename,S3_BUCKET,file)
 		
 		return '<h1>success</h>'
 		
