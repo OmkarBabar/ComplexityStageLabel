@@ -26,8 +26,6 @@ S3_BUCKET = os.environ.get('S3_BUCKET')
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 
-client = boto3.client('s3',aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
-
 app = Flask(__name__)
 
 all_stopwords = stopwords.words('english')
@@ -69,10 +67,15 @@ def data():
 		print('S3_BUCKET',S3_BUCKET)
 		print('AWS_ACCESS_KEY_ID',AWS_ACCESS_KEY_ID)
 		print('AWS_SECRET_ACCESS_KEY',AWS_SECRET_ACCESS_KEY)
+		
+		client = boto3.client('s3',aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
 	
 		file = request.files['csvfile']
 		filename = secure_filename(file.filename)
-		client.upload_file(file,S3_BUCKET,filename)
+		file.save(filename)
+		client.upload_file(Bucket=S3_BUCKET,Filename=filename,Key=filename)
+		
+		return '<h1>success</h>'
 		
 		"""
 		session = boto3.Session( aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
@@ -80,7 +83,7 @@ def data():
 		
 		s3.Bucket(S3_BUCKET).put_object(Key=filename,Body=request.files['csvfile'])
 		"""
-		return '<h1>success</h>'
+		
 		
 		
 		"""
