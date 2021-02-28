@@ -64,9 +64,10 @@ def data():
 	if request.method == 'POST':
 		print("ggggggggg", request.files)
 		file = request.files['csvfile']
-		file.save(os.path.join("uploads", file.filename))
+		file.save(os.path.join(UPLOAD_FOLDER, file.filename))
 		
 		f = request.files['csvfile']
+		print("filename ", f.filename)
 		if not f:
 			return "No file"
 		
