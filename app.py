@@ -97,14 +97,21 @@ def data():
 		print("ggggggggg", request.files)
 		file = request.files['csvfile']
 		file.save(os.path.join(ROOT_PATH, file.filename))
-		# print("ccccccccccccccccccccccccc", file)
-
+		data = []
+		with open(file, 'wb') as csvfile:
+			csvfile = csv.reader(file)
+			for row in csvfile:
+				data.append(row)
+		df = pd.DataFrame(data)
+		
+		"""
 		stream = io.TextIOWrapper(file.stream._file, "UTF8", newline=None)
 
 		stream.seek(0)
 		result = transform(stream.read())
 		
 		df = pd.read_csv(result)
+		"""
 		df['Prediction'] = df['Solution'].apply(make_prediction)
 		
 		response = make_response(df.to_csv())
