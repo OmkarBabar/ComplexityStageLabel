@@ -15,9 +15,6 @@ import flask_restful as restful
 from werkzeug.utils import secure_filename
 import boto3
 
-
-bucket_resource.upload_file(Bucket = BUCKET, Filename=picture_fn, Key=picture_fn) # uploading
-
 nltk.download('stopwords')
 
 filename = 'model.pkl'
