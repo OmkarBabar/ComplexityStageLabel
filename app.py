@@ -28,8 +28,6 @@ AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 
 app = Flask(__name__)
 
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
 all_stopwords = stopwords.words('english')
 
 lemmatizer = WordNetLemmatizer()
