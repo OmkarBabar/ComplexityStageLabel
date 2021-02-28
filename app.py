@@ -109,7 +109,7 @@ def data():
 		
 		df['Prediction'] = df['Solution'].apply(make_prediction)
 		
-		response = make_response(df.to_csv())
+		response = make_response(df.to_csv(index=False))
 		#response = make_response(result)
 		response.headers["Content-Disposition"] = "attachment; filename=result.csv"
 		return response
