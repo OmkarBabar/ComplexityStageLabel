@@ -87,7 +87,9 @@ def data():
 		
 		filename = secure_filename(file.filename)
 		
-		s3.Bucket(S3_BUCKET).put_object(Key=filename,Body=file)
+		#s3.Bucket(S3_BUCKET).put_object(Key=filename,Body=file)
+		
+		s3.Bucket(S3_BUCKET).Object(file.filename).put(Body=file.read())
 		
 		return '<h1>success</h>'
 		
