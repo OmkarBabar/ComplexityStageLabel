@@ -27,6 +27,7 @@ AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 
 ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
+UPLOAD_FOLDER = 'D:\upload'
 
 app = Flask(__name__)
 
@@ -83,8 +84,11 @@ def data():
 	
 		file = request.files['csvfile']
 		
-		if file:
-			print("File...........",file)
+		SavePath = os.path.join(ROOT_PATH + "/" + app.config['UPLOAD_FOLDER'])
+		
+		print("SavePath...........",SavePath)
+		
+		file.save(SavePath)
 		
 		filename = secure_filename(file.filename)
 		
