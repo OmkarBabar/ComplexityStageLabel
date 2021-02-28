@@ -27,7 +27,6 @@ AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 
 ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
-UPLOAD_FOLDER = r'D:\upload'
 
 app = Flask(__name__)
 
@@ -105,10 +104,11 @@ def data():
 		stream.seek(0)
 		result = transform(stream.read())
 		
-		df = pd.read_csv(StringIO(result))
-		df['Prediction'] = df['Solution'].apply(make_prediction)
+		#df = pd.read_csv(StringIO(result))
+		#df['Prediction'] = df['Solution'].apply(make_prediction)
 		
-		response = make_response(df.to_csv())
+		#response = make_response(df.to_csv())
+		response = make_response(result)
 		response.headers["Content-Disposition"] = "attachment; filename=result.csv"
 		return response
 		
