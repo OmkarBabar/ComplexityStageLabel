@@ -1,4 +1,5 @@
 from flask import Flask, make_response, request, render_template,jsonify
+from secrets import access_key,secret_access_key
 import io
 from io import StringIO
 import csv
@@ -25,6 +26,8 @@ vectorizer  = pickle.load(open('vectorizer.pkl','rb'))
 S3_BUCKET = os.environ.get('S3_BUCKET')
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+
+client = boto3.client('s3',aws_access_key_id=access_key, aws_secret_access_key=secret_access_key)
 
 app = Flask(__name__)
 
@@ -66,12 +69,14 @@ def data():
 		
 		file = request.files['csvfile']
 		filename = secure_filename(file.filename)
+		client.upload_file(file,S3_BUCKET,filename)
 		
+		"""
 		session = boto3.Session( aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
 		s3 = session.resource('s3')
 		
 		s3.Bucket(S3_BUCKET).put_object(Key=filename,Body=request.files['csvfile'])
-		
+		"""
 		return '<h1>success</h>'
 		
 		
