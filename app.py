@@ -17,6 +17,7 @@ import boto3
 
 nltk.download('stopwords')
 nltk.download('punkt')
+nltk.download('wordnet')
 
 filename = 'model.pkl'
 loaded_model    = pickle.load(open(filename, 'rb'))
