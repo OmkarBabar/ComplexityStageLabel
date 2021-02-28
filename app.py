@@ -86,9 +86,9 @@ def data():
 		
 		filename = secure_filename(file.filename)
 		
-		s3.Bucket(S3_BUCKET).put_object(Key=filename,Body=file)
+		#s3.Bucket(S3_BUCKET).put_object(Key=filename,Body=file)
 		
-		#presigned_post = s3.generate_presigned_post(Bucket = S3_BUCKET,Key = filename,Fields = {"acl": "public-read", "Content-Type": file_type},Conditions = [{"acl": "public-read"},{"Content-Type": file_type}],ExpiresIn = 3600)
+		presigned_post = s3.generate_presigned_post(Bucket = S3_BUCKET,Key = filename,Fields = {"acl": "public-read", "Content-Type": file_type},Conditions = [{"acl": "public-read"},{"Content-Type": file_type}],ExpiresIn = 3600)
 
 		#s3.upload_fileobj(result,S3_BUCKET,filename)
 		
