@@ -26,6 +26,8 @@ S3_BUCKET = os.environ.get('S3_BUCKET')
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 
+ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
+
 app = Flask(__name__)
 
 all_stopwords = stopwords.words('english')
@@ -63,6 +65,8 @@ def form():
 @app.route('/data', methods=['GET','POST'])
 def data():
 	if request.method == 'POST':
+		
+		print(ROOT_PATH)
 		
 		print('S3_BUCKET',S3_BUCKET)
 		print('AWS_ACCESS_KEY_ID',AWS_ACCESS_KEY_ID)
