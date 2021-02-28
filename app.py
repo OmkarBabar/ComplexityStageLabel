@@ -85,7 +85,7 @@ def data():
 		
 		stream = io.TextIOWrapper(file.stream._file, "UTF8", newline=None)
 		csv_input = csv.reader(stream)
-		print("csv_input :",csv_input)
+		print("csv_input :",stream)
 		
 		stream.seek(0)
 		result = transform(stream.read())
