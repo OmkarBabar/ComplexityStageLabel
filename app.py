@@ -63,11 +63,12 @@ def form():
 @app.route('/data', methods=['GET','POST'])
 def data():
 	if request.method == 'POST':
-		
+		S3_BUCKET = os.environ.get('S3_BUCKET')
 		file = request.files['csvfile']
 		filename = secure_filename(file.filename)
+		
 		s3 = boto3.resource('s3')
-		s3.Bucket('complexitystage').put_object(Key=filename,Body=file)
+		s3.Bucket(S3_BUCKET).put_object(Key=filename,Body=request.files['csvfile'])
 		
 		return '<h1>success</h>'
 		
