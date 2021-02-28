@@ -85,7 +85,7 @@ def data():
 	
 		file = request.files['csvfile']
 		
-		stream = io.TextIOWrapper(f.stream._file, "UTF8", newline=None)
+		stream = io.TextIOWrapper(file.stream._file, "UTF8", newline=None)
 		
 		filename = secure_filename(stream.filename)
 		
