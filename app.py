@@ -88,7 +88,7 @@ def data():
 		
 		#s3.Bucket(S3_BUCKET).put_object(Key=filename,Body=file)
 		
-		presigned_post = s3.generate_presigned_post(Bucket = S3_BUCKET,Key = file)
+		presigned_post = s3.generate_presigned_post(Bucket = S3_BUCKET,Key = filename)
 		
 		if presigned_post:
 			print("Load Sucee...............")
